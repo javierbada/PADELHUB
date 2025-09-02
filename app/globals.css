@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Custom Padel Colors */
+  --primary-100: #00ADB5;
+  --primary-200: #AAE3E2;
+  --primary-300: #fdf6fd;
+  --accent-100: #AC7DD2;
+  --accent-200: #fff4ff;
+  --text-100: #EEEEEE;
+  --text-200: #C5C5C5;
+  --bg-100: #222831;
+  --bg-200: #393E46;
+  --bg-300: #454e59;
+  --bg-200-alpha-80: rgba(57, 62, 70, 0.8);
+
+  /* Shadcn overrides for dark theme */
+  --background: var(--bg-100);
+  --foreground: var(--text-100);
+  --card: var(--bg-200);
+  --card-foreground: var(--text-100);
+  --popover: var(--bg-200);
+  --popover-foreground: var(--text-100);
+  --primary: var(--primary-100);
+  --primary-foreground: var(--bg-100);
+  --secondary: var(--bg-300);
+  --secondary-foreground: var(--text-100);
+  --muted: var(--bg-300);
+  --muted-foreground: var(--text-200);
+  --accent: var(--accent-100);
+  --accent-foreground: var(--bg-100);
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: var(--text-100);
+  --border: var(--bg-300);
+  --input: var(--bg-300);
+  --ring: var(--primary-100);
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-[var(--bg-100)] text-[var(--text-100)] font-sans;
+  }
+}
+
+@layer components {
+  .text-gradient {
+    @apply bg-gradient-to-r from-[var(--primary-100)] to-[var(--accent-100)] bg-clip-text text-transparent;
+  }
+  
+  .glass-card {
+    @apply bg-[var(--bg-200-alpha-80)] backdrop-blur-sm border border-[var(--bg-300)];
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:transform hover:scale-[1.02] hover:shadow-xl;
+  }
+}
