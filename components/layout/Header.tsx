@@ -32,7 +32,7 @@ export default function Header() {
               <Trophy className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gradient">PadelHub</h1>
+              <h1 className="text-xl font-bold text-gradient">4PADEL</h1>
               <p className="text-xs text-text-200 hidden sm:block">Professional Padel Platform</p>
             </div>
           </div>

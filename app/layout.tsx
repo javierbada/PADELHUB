@@ -9,7 +9,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'PadelHub - Resultados, Rankings y Noticias de Padel',
+  title: '4PADEL - Resultados, Rankings y Noticias de Padel',
   description: 'La plataforma definitiva para seguir todas las competiciones de padel: PremierPadel, PadelProLeague, A1PADEL, Padel FIP y Hexagon Cup',
 };
 

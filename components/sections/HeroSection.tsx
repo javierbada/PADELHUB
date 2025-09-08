@@ -25,8 +25,7 @@ export default function HeroSection() {
     <section className="py-16 mb-12">
       <div className="text-center mb-12">
         <h1 className="text-5xl md:text-6xl font-bold mb-6">
-          <span className="text-gradient">Padel</span>
-          <span className="text-text-100">Hub</span>
+          <span className="text-gradient">4PADEL</span>
         </h1>
         <p className="text-xl text-text-200 max-w-3xl mx-auto mb-8 leading-relaxed">
           Tu fuente definitiva para resultados, rankings y noticias de todas las competiciones profesionales de padel

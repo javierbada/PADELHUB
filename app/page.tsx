@@ -44,9 +44,9 @@ export default function HomePage() {
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-primary-100 to-accent-100 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">PH</span>
+                <span className="text-white font-bold text-sm">4P</span>
               </div>
-              <h3 className="text-xl font-bold text-gradient">PadelHub</h3>
+              <h3 className="text-xl font-bold text-gradient">4PADEL</h3>
             </div>
             <p className="text-text-200 mb-6">
               La plataforma definitiva para seguir el padel profesional mundial
@@ -63,7 +63,7 @@ export default function HomePage() {
               <span>Hexagon Cup</span>
             </div>
             <div className="mt-8 pt-8 border-t border-bg-300 text-text-200 text-sm">
-              <p>&copy; 2024 PadelHub. Plataforma no oficial de seguimiento de competiciones de padel.</p>
+              <p>&copy; 2024 4PADEL. Plataforma no oficial de seguimiento de competiciones de padel.</p>
             </div>
           </div>
         </div>
