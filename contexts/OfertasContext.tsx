@@ -21,38 +21,38 @@ export function OfertasProvider({ children }: { children: ReactNode }): JSX.Elem
   const [personasRegistradas, setPersonasRegistradas] = useState(0);
   const [isUsuarioRegistrado, setIsUsuarioRegistrado] = useState(false);
   
-  const maxPersonas: number = 25;
-  const descuento: number = 35;
+  const maxPersonas = 25;
+  const descuento = 35;
 
-  useEffect((): void => {
+  useEffect(() => {
     // Verificar si estamos en el cliente
     if (typeof window === 'undefined') return;
     
     // Simular personas ya registradas (en producción esto vendría de una API)
-    const personasIniciales: number = Math.floor(Math.random() * 15) + 5; // Entre 5 y 19
+    const personasIniciales = Math.floor(Math.random() * 15) + 5; // Entre 5 y 19
     setPersonasRegistradas(personasIniciales);
     
     // Verificar si el usuario ya se registró en esta oferta
-    const usuarioRegistrado: string | null = localStorage.getItem('padelhub_oferta_registrado');
+    const usuarioRegistrado = localStorage.getItem('padelhub_oferta_registrado');
     if (usuarioRegistrado) {
       setIsUsuarioRegistrado(true);
     }
     
     // Verificar si la oferta fue cerrada manualmente
-    const ofertaCerrada: string | null = localStorage.getItem('padelhub_oferta_cerrada');
+    const ofertaCerrada = localStorage.getItem('padelhub_oferta_cerrada');
     if (ofertaCerrada) {
       setIsOfertaVisible(false);
     }
   }, []);
 
-  const cerrarOferta = (): void => {
+  const cerrarOferta = () => {
     setIsOfertaVisible(false);
     if (typeof window !== 'undefined') {
       localStorage.setItem('padelhub_oferta_cerrada', 'true');
     }
   };
 
-  const registrarPersona = (): void => {
+  const registrarPersona = () => {
     if (personasRegistradas < maxPersonas && !isUsuarioRegistrado) {
       setPersonasRegistradas(prev => prev + 1);
       setIsUsuarioRegistrado(true);
@@ -62,8 +62,8 @@ export function OfertasProvider({ children }: { children: ReactNode }): JSX.Elem
     }
   };
 
-  const personasRestantes: number = Math.max(0, maxPersonas - personasRegistradas);
-  const porcentajeCompletado: number = Math.min(100, Math.max(0, Math.round((personasRegistradas / maxPersonas) * 100)));
+  const personasRestantes = Math.max(0, maxPersonas - personasRegistradas);
+  const porcentajeCompletado = Math.min(100, Math.max(0, Math.round((personasRegistradas / maxPersonas) * 100)));
 
   return (
     <OfertasContext.Provider value={{

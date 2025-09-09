@@ -23,7 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect((): void => {
+  useEffect(() => {
     // Verificar si estamos en el cliente
     if (typeof window === 'undefined') {
       setIsLoading(false);
@@ -31,18 +31,18 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     }
     
     // Simular verificación de sesión persistente
-    const savedUser: string | null = localStorage.getItem('padelhub_user');
+    const savedUser = localStorage.getItem('padelhub_user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string) => {
     setIsLoading(true);
     
     // Simular llamada a API
-    await new Promise<void>(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Mock de autenticación - en producción esto sería una llamada real a la API
     if (email === 'demo@padelhub.com' && password === 'demo123') {
@@ -64,11 +64,11 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     return false;
   };
 
-  const register = async (name: string, email: string, password: string): Promise<boolean> => {
+  const register = async (name: string, email: string, password: string) => {
     setIsLoading(true);
     
     // Simular llamada a API
-    await new Promise<void>(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Mock de registro - en producción esto sería una llamada real a la API
     const userData: User = {
@@ -86,7 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }): JSX.Element
     return true;
   };
 
-  const logout = (): void => {
+  const logout = () => {
     setUser(null);
     if (typeof window !== 'undefined') {
       localStorage.removeItem('padelhub_user');

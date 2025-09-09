@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import { X, Users, Clock, Gift, Star, CheckCircle, AlertCircle } from 'lucide-react';
 import { useOfertas } from '@/contexts/OfertasContext';
+import SuscripcionModal from './SuscripcionModal';
 
 export default function TopBarOfertas() {
   const [isMounted, setIsMounted] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showSuscripcionModal, setShowSuscripcionModal] = useState(false);
 
   const {
     isOfertaVisible,
@@ -24,22 +26,19 @@ export default function TopBarOfertas() {
     setIsMounted(true);
   }, []);
 
-  const handleRegistro = (): void => {
+  const handleRegistro = () => {
     if (personasRestantes > 0 && !isUsuarioRegistrado) {
-      setIsAnimating(true);
-      registrarPersona();
-      
-      // Reset animation after 2 seconds
-      setTimeout(() => setIsAnimating(false), 2000);
+      setShowSuscripcionModal(true);
     }
   };
 
   if (!isMounted || !isOfertaVisible) return null;
 
-  const isOfertaCompleta: boolean = personasRegistradas >= maxPersonas;
-  const isOfertaCasiCompleta: boolean = personasRestantes <= 5;
+  const isOfertaCompleta = personasRegistradas >= maxPersonas;
+  const isOfertaCasiCompleta = personasRestantes <= 5;
 
   return (
+    <>
     <div className="relative bg-gradient-to-r from-accent-100 via-primary-100 to-accent-100 overflow-hidden animate-slide-down">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -178,5 +177,12 @@ export default function TopBarOfertas() {
       {/* Animated border */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
     </div>
+
+    {/* Modal de Suscripción */}
+    <SuscripcionModal
+      isOpen={showSuscripcionModal}
+      onClose={() => setShowSuscripcionModal(false)}
+    />
+    </>
   );
 }

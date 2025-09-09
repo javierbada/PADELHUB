@@ -2,13 +2,16 @@
 
 import { useState } from 'react';
 import { X, Gift, Star } from 'lucide-react';
+import SuscripcionModal from './SuscripcionModal';
 
 export default function SimpleTopBar() {
   const [isVisible, setIsVisible] = useState(true);
+  const [showSuscripcionModal, setShowSuscripcionModal] = useState(false);
 
   if (!isVisible) return null;
 
   return (
+    <>
     <div className="relative bg-gradient-to-r from-accent-100 via-primary-100 to-accent-100 overflow-hidden animate-slide-down">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
@@ -45,7 +48,10 @@ export default function SimpleTopBar() {
 
             {/* Right side - Action button */}
             <div className="flex items-center space-x-3">
-              <button className="px-4 py-2 bg-white text-accent-100 rounded-full text-sm font-bold hover:bg-gray-100 hover:scale-105 transition-all duration-300 flex items-center space-x-2">
+              <button 
+                onClick={() => setShowSuscripcionModal(true)}
+                className="px-4 py-2 bg-white text-accent-100 rounded-full text-sm font-bold hover:bg-gray-100 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
+              >
                 <Star className="w-4 h-4" />
                 <span>¡Quiero el 35%!</span>
               </button>
@@ -65,5 +71,12 @@ export default function SimpleTopBar() {
       {/* Animated border */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
     </div>
+
+    {/* Modal de Suscripción */}
+    <SuscripcionModal
+      isOpen={showSuscripcionModal}
+      onClose={() => setShowSuscripcionModal(false)}
+    />
+    </>
   );
 }
