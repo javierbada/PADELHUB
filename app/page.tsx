@@ -1,4 +1,5 @@
 import Header from '@/components/layout/Header';
+import SimpleTopBar from '@/components/ofertas/SimpleTopBar';
 import HeroSection from '@/components/sections/HeroSection';
 import DaySelector from '@/components/sections/DaySelector';
 import PartidosDelDia from '@/components/sections/PartidosDelDia';
@@ -13,6 +14,7 @@ import NoticiasDestacadas from '@/components/sections/NoticiasDestacadas';
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-bg-100">
+      <SimpleTopBar />
       <Header />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

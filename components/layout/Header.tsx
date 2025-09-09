@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Trophy, Calendar, BarChart3, Newspaper, Menu, X } from 'lucide-react';
+import AuthButton from '@/components/auth/AuthButton';
 
 // TODO: Implementar navegación activa y ruteo con Next.js router
 // FIXME: Agregar estado activo para la navegación actual
@@ -54,6 +55,11 @@ export default function Header() {
             })}
           </nav>
 
+          {/* Auth Button */}
+          <div className="hidden md:block">
+            <AuthButton />
+          </div>
+
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -81,6 +87,11 @@ export default function Header() {
                   </a>
                 );
               })}
+              
+              {/* Mobile Auth Button */}
+              <div className="px-4 py-2">
+                <AuthButton />
+              </div>
             </nav>
           </div>
         )}

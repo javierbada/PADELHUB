@@ -1,6 +1,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { OfertasProvider } from '@/contexts/OfertasContext';
 
 const dmSans = DM_Sans({ 
   subsets: ['latin'],
@@ -20,7 +22,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={dmSans.variable}>
-      <body className={`${dmSans.className} font-sans antialiased`}>{children}</body>
+      <body className={`${dmSans.className} font-sans antialiased`}>
+        <AuthProvider>
+          <OfertasProvider>
+            {children}
+          </OfertasProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
