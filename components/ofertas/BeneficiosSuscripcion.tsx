@@ -43,46 +43,46 @@ export default function BeneficiosSuscripcion({ isVisible, onClose }: Beneficios
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-lg mx-auto">
-        <div className="glass-card rounded-2xl p-8 relative modal-in shadow-2xl">
+      <div className="relative w-full max-w-md mx-auto">
+        <div className="glass-card rounded-2xl p-6 relative modal-in shadow-2xl">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-accent-100 to-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Crown className="w-8 h-8 text-white" />
+          <div className="text-center mb-6">
+            <div className="w-12 h-12 bg-gradient-to-br from-accent-100 to-primary-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Crown className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-text-100 mb-2">
+            <h2 className="text-xl font-bold text-text-100 mb-2">
               ¡Bienvenido a 4PADEL Premium!
             </h2>
-            <p className="text-text-200">
+            <p className="text-text-200 text-sm">
               Con tu suscripción tendrás acceso a beneficios exclusivos
             </p>
           </div>
 
           {/* Benefits list */}
-          <div className="space-y-4 mb-8">
+          <div className="space-y-3 mb-6">
             {beneficios.map((beneficio, index) => {
               const Icono = beneficio.icono;
               return (
-                <div key={index} className="flex items-start space-x-4 p-4 bg-bg-300 rounded-lg">
+                <div key={index} className="flex items-start space-x-3 p-3 bg-bg-300 rounded-lg">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-gradient-to-br from-primary-100 to-accent-100 rounded-lg flex items-center justify-center">
-                      <Icono className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 bg-gradient-to-br from-primary-100 to-accent-100 rounded-lg flex items-center justify-center">
+                      <Icono className="w-4 h-4 text-white" />
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-text-100 mb-1">
+                    <h3 className="font-semibold text-text-100 mb-1 text-sm">
                       {beneficio.titulo}
                     </h3>
-                    <p className="text-text-200 text-sm">
+                    <p className="text-text-200 text-xs">
                       {beneficio.descripcion}
                     </p>
                   </div>
-                  <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
                 </div>
               );
             })}
@@ -92,11 +92,11 @@ export default function BeneficiosSuscripcion({ isVisible, onClose }: Beneficios
           <div className="text-center">
             <button
               onClick={onClose}
-              className="w-full bg-gradient-to-r from-primary-100 to-accent-100 text-white py-3 rounded-lg font-semibold hover:from-primary-200 hover:to-accent-200 transition-all duration-300"
+              className="w-full bg-gradient-to-r from-primary-100 to-accent-100 text-white py-2.5 rounded-lg font-semibold hover:from-primary-200 hover:to-accent-200 transition-all duration-300 text-sm"
             >
               ¡Comenzar a disfrutar!
             </button>
-            <p className="text-text-200 text-xs mt-3">
+            <p className="text-text-200 text-xs mt-2">
               Tu suscripción se activará automáticamente
             </p>
           </div>

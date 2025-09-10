@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { DM_Sans } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { OfertasProvider } from '@/contexts/OfertasContext';
+import { ModalProvider } from '@/contexts/ModalContext';
 
 const dmSans = DM_Sans({ 
   subsets: ['latin'],
@@ -25,7 +26,9 @@ export default function RootLayout({
       <body className={`${dmSans.className} font-sans antialiased`}>
         <AuthProvider>
           <OfertasProvider>
-            {children}
+            <ModalProvider>
+              {children}
+            </ModalProvider>
           </OfertasProvider>
         </AuthProvider>
       </body>

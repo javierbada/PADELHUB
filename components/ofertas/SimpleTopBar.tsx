@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import { X, Gift, Star } from 'lucide-react';
 import SuscripcionModal from './SuscripcionModal';
+import VentajasSuscripcionModal from './VentajasSuscripcionModal';
 
 export default function SimpleTopBar() {
   const [isVisible, setIsVisible] = useState(true);
   const [showSuscripcionModal, setShowSuscripcionModal] = useState(false);
+  const [showVentajasModal, setShowVentajasModal] = useState(false);
 
   if (!isVisible) return null;
 
@@ -36,20 +38,20 @@ export default function SimpleTopBar() {
                   35%
                 </span>
                 <span className="text-sm sm:text-base">
-                  de descuento
+                  de descuento para las primeras 25 personas
                 </span>
-              </div>
-              
-              <div className="text-white text-xs sm:text-sm">
-                <span className="hidden sm:inline">para las primeras </span>
-                <span className="font-bold">25 personas</span>
               </div>
             </div>
 
-            {/* Right side - Action button */}
+            {/* Right side - Action button and counter */}
             <div className="flex items-center space-x-3">
+              <div className="text-white text-xs sm:text-sm">
+                <span className="font-bold">
+                  0/25 registradas
+                </span>
+              </div>
               <button 
-                onClick={() => setShowSuscripcionModal(true)}
+                onClick={() => setShowVentajasModal(true)}
                 className="px-4 py-2 bg-white text-accent-100 rounded-full text-sm font-bold hover:bg-gray-100 hover:scale-105 transition-all duration-300 flex items-center space-x-2"
               >
                 <Star className="w-4 h-4" />
@@ -71,6 +73,16 @@ export default function SimpleTopBar() {
       {/* Animated border */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
     </div>
+
+    {/* Modal de Ventajas */}
+    <VentajasSuscripcionModal
+      isOpen={showVentajasModal}
+      onClose={() => setShowVentajasModal(false)}
+      onRegistrarse={() => {
+        setShowVentajasModal(false);
+        setShowSuscripcionModal(true);
+      }}
+    />
 
     {/* Modal de Suscripción */}
     <SuscripcionModal

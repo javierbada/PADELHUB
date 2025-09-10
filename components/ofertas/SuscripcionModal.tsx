@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, CreditCard, Shield, CheckCircle, Star, Gift } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useOfertas } from '@/contexts/OfertasContext';
+import { useModal } from '@/contexts/ModalContext';
 
 interface SuscripcionModalProps {
   isOpen: boolean;
@@ -29,6 +30,11 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
 
   const { login, register } = useAuth();
   const { registrarPersona } = useOfertas();
+  const { setIsModalOpen } = useModal();
+
+  useEffect(() => {
+    setIsModalOpen(isOpen);
+  }, [isOpen, setIsModalOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,13 +99,13 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-2xl mx-auto">
-        <div className="glass-card rounded-2xl p-8 relative modal-in shadow-2xl">
+      <div className="relative w-full max-w-lg mx-auto">
+        <div className="glass-card rounded-2xl p-6 relative modal-in shadow-2xl">
           {/* Close button */}
           <button
             onClick={onClose}
@@ -109,14 +115,14 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
           </button>
 
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-accent-100 to-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Gift className="w-8 h-8 text-white" />
+          <div className="text-center mb-6">
+            <div className="w-12 h-12 bg-gradient-to-br from-accent-100 to-primary-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Gift className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-text-100 mb-2">
+            <h2 className="text-xl font-bold text-text-100 mb-2">
               {currentStep === 1 ? 'Accede a tu cuenta' : 'Completa tu suscripción'}
             </h2>
-            <p className="text-text-200">
+            <p className="text-text-200 text-sm">
               {currentStep === 1 
                 ? 'Inicia sesión o regístrate para obtener el 35% de descuento' 
                 : 'Procesa el pago para activar tu suscripción premium'
@@ -125,27 +131,27 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
           </div>
 
           {/* Progress bar */}
-          <div className="mb-8">
+          <div className="mb-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-text-200">Paso {currentStep} de 2</span>
-              <span className="text-sm text-primary-100 font-medium">{currentStep === 1 ? 'Registro' : 'Pago'}</span>
+              <span className="text-xs text-text-200">Paso {currentStep} de 2</span>
+              <span className="text-xs text-primary-100 font-medium">{currentStep === 1 ? 'Registro' : 'Pago'}</span>
             </div>
-            <div className="w-full bg-bg-300 rounded-full h-2">
+            <div className="w-full bg-bg-300 rounded-full h-1.5">
               <div 
-                className="bg-gradient-to-r from-primary-100 to-accent-100 rounded-full h-2 transition-all duration-500"
+                className="bg-gradient-to-r from-primary-100 to-accent-100 rounded-full h-1.5 transition-all duration-500"
                 style={{ width: `${(currentStep / 2) * 100}%` }}
               />
             </div>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {currentStep === 1 ? (
               // Paso 1: Registro/Login
               <>
                 {!isLogin && (
                   <div>
-                    <label className="block text-sm font-medium text-text-100 mb-2">
+                    <label className="block text-xs font-medium text-text-100 mb-1">
                       Nombre completo
                     </label>
                     <input
@@ -154,14 +160,14 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                       value={formData.name}
                       onChange={handleInputChange}
                       required={!isLogin}
-                      className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all"
+                      className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all text-sm"
                       placeholder="Tu nombre completo"
                     />
                   </div>
                 )}
 
                 <div>
-                  <label className="block text-sm font-medium text-text-100 mb-2">
+                  <label className="block text-xs font-medium text-text-100 mb-1">
                     Correo electrónico
                   </label>
                   <input
@@ -170,13 +176,13 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all"
+                    className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all text-sm"
                     placeholder="tu@email.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-text-100 mb-2">
+                  <label className="block text-xs font-medium text-text-100 mb-1">
                     Contraseña
                   </label>
                   <div className="relative">
@@ -186,13 +192,13 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                       value={formData.password}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all pr-12"
+                      className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all pr-10 text-sm"
                       placeholder="••••••••"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-200 hover:text-text-100 transition-colors"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-text-200 hover:text-text-100 transition-colors"
                     >
                       {showPassword ? '👁️' : '👁️‍🗨️'}
                     </button>
@@ -201,7 +207,7 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
 
                 {!isLogin && (
                   <div>
-                    <label className="block text-sm font-medium text-text-100 mb-2">
+                    <label className="block text-xs font-medium text-text-100 mb-1">
                       Confirmar contraseña
                     </label>
                     <input
@@ -210,7 +216,7 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
                       required={!isLogin}
-                      className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all"
+                      className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all text-sm"
                       placeholder="••••••••"
                     />
                   </div>
@@ -219,24 +225,24 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
             ) : (
               // Paso 2: Información de pago
               <>
-                <div className="bg-gradient-to-r from-accent-100/10 to-primary-100/10 rounded-lg p-4 mb-6">
+                <div className="bg-gradient-to-r from-accent-100/10 to-primary-100/10 rounded-lg p-3 mb-4">
                   <div className="flex items-center space-x-3">
-                    <Star className="w-6 h-6 text-accent-100" />
+                    <Star className="w-5 h-5 text-accent-100" />
                     <div>
-                      <h3 className="font-bold text-text-100">Suscripción Premium</h3>
-                      <p className="text-text-200 text-sm">Acceso completo a todas las funciones</p>
+                      <h3 className="font-bold text-text-100 text-sm">Suscripción Premium</h3>
+                      <p className="text-text-200 text-xs">Acceso completo a todas las funciones</p>
                     </div>
                     <div className="ml-auto text-right">
-                      <div className="text-2xl font-bold text-text-100">€9.99</div>
-                      <div className="text-sm text-text-200 line-through">€15.99</div>
+                      <div className="text-lg font-bold text-text-100">€9.99</div>
+                      <div className="text-xs text-text-200 line-through">€15.99</div>
                       <div className="text-xs text-green-400 font-medium">35% descuento</div>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-text-100 mb-2">
+                    <label className="block text-xs font-medium text-text-100 mb-1">
                       Nombre en la tarjeta
                     </label>
                     <input
@@ -245,13 +251,13 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                       value={formData.cardName}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all"
+                      className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all text-sm"
                       placeholder="Juan Pérez"
                     />
                   </div>
                   
                   <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-text-100 mb-2">
+                    <label className="block text-xs font-medium text-text-100 mb-1">
                       Número de tarjeta
                     </label>
                     <input
@@ -260,13 +266,13 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                       value={formData.cardNumber}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all"
+                      className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all text-sm"
                       placeholder="1234 5678 9012 3456"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-text-100 mb-2">
+                    <label className="block text-xs font-medium text-text-100 mb-1">
                       Fecha de vencimiento
                     </label>
                     <input
@@ -275,13 +281,13 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                       value={formData.expiryDate}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all"
+                      className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all text-sm"
                       placeholder="MM/AA"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-text-100 mb-2">
+                    <label className="block text-xs font-medium text-text-100 mb-1">
                       CVV
                     </label>
                     <input
@@ -290,21 +296,21 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
                       value={formData.cvv}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all"
+                      className="w-full px-3 py-2 bg-bg-300 border border-bg-300 rounded-lg text-text-100 placeholder-text-200 focus:outline-none focus:ring-2 focus:ring-primary-100 focus:border-transparent transition-all text-sm"
                       placeholder="123"
                     />
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2 text-sm text-text-200">
-                  <Shield className="w-4 h-4" />
+                <div className="flex items-center space-x-2 text-xs text-text-200">
+                  <Shield className="w-3 h-3" />
                   <span>Pago seguro procesado por Stripe</span>
                 </div>
               </>
             )}
 
             {error && (
-              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
+              <div className="p-2 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-xs">
                 {error}
               </div>
             )}
@@ -312,23 +318,23 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-primary-100 to-accent-100 text-white py-3 rounded-lg font-semibold hover:from-primary-200 hover:to-accent-200 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+              className="w-full bg-gradient-to-r from-primary-100 to-accent-100 text-white py-2.5 rounded-lg font-semibold hover:from-primary-200 hover:to-accent-200 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 text-sm"
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   <span>Procesando...</span>
                 </>
               ) : (
                 <>
                   {currentStep === 1 ? (
                     <>
-                      <CheckCircle className="w-5 h-5" />
+                      <CheckCircle className="w-4 h-4" />
                       <span>{isLogin ? 'Iniciar Sesión' : 'Registrarse'}</span>
                     </>
                   ) : (
                     <>
-                      <CreditCard className="w-5 h-5" />
+                      <CreditCard className="w-4 h-4" />
                       <span>Pagar €9.99</span>
                     </>
                   )}
@@ -339,8 +345,8 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
 
           {/* Footer */}
           {currentStep === 1 && (
-            <div className="mt-6 text-center">
-              <p className="text-text-200 text-sm">
+            <div className="mt-4 text-center">
+              <p className="text-text-200 text-xs">
                 {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}
                 <button
                   type="button"
@@ -355,7 +361,7 @@ export default function SuscripcionModal({ isOpen, onClose }: SuscripcionModalPr
 
           {/* Demo credentials */}
           {currentStep === 1 && isLogin && (
-            <div className="mt-4 p-3 bg-bg-300 rounded-lg">
+            <div className="mt-3 p-2 bg-bg-300 rounded-lg">
               <p className="text-text-200 text-xs text-center">
                 <strong>Demo:</strong> demo@padelhub.com / demo123
               </p>

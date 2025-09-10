@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Trophy, Calendar, BarChart3, Newspaper, Menu, X } from 'lucide-react';
 import AuthButton from '@/components/auth/AuthButton';
+import { useModal } from '@/contexts/ModalContext';
 
 // TODO: Implementar navegación activa y ruteo con Next.js router
 // FIXME: Agregar estado activo para la navegación actual
@@ -22,9 +23,12 @@ const navigation: NavigationItem[] = [
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isModalOpen } = useModal();
 
   return (
-    <header className="sticky top-0 z-50 bg-bg-100/95 backdrop-blur-md border-b border-bg-300">
+    <header className={`sticky top-0 z-40 glass-card border-b border-bg-300/50 transition-all duration-300 ${
+      isModalOpen ? 'backdrop-blur-sm opacity-80' : ''
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -71,7 +75,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-bg-300 animate-slide-in">
+          <div className="md:hidden py-4 border-t border-bg-300/50 animate-slide-in glass-card mt-2 rounded-lg">
             <nav className="space-y-2">
               {navigation.map((item) => {
                 const Icon = item.icon;

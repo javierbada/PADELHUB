@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react';
 import { X, Users, Clock, Gift, Star, CheckCircle, AlertCircle } from 'lucide-react';
 import { useOfertas } from '@/contexts/OfertasContext';
 import SuscripcionModal from './SuscripcionModal';
+import VentajasSuscripcionModal from './VentajasSuscripcionModal';
 
 export default function TopBarOfertas() {
   const [isMounted, setIsMounted] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showSuscripcionModal, setShowSuscripcionModal] = useState(false);
+  const [showVentajasModal, setShowVentajasModal] = useState(false);
 
   const {
     isOfertaVisible,
@@ -28,8 +30,13 @@ export default function TopBarOfertas() {
 
   const handleRegistro = () => {
     if (personasRestantes > 0 && !isUsuarioRegistrado) {
-      setShowSuscripcionModal(true);
+      setShowVentajasModal(true);
     }
+  };
+
+  const handleRegistrarse = () => {
+    setShowVentajasModal(false);
+    setShowSuscripcionModal(true);
   };
 
   if (!isMounted || !isOfertaVisible) return null;
@@ -63,13 +70,8 @@ export default function TopBarOfertas() {
                   {descuento}%
                 </span>
                 <span className="text-sm sm:text-base">
-                  de descuento
+                  de descuento para las primeras {maxPersonas} personas
                 </span>
-              </div>
-              
-              <div className="text-white text-xs sm:text-sm">
-                <span className="hidden sm:inline">para las primeras </span>
-                <span className="font-bold">{maxPersonas}personas</span>
               </div>
             </div>
 
@@ -104,8 +106,13 @@ export default function TopBarOfertas() {
               </div>
             </div>
 
-            {/* Right side - Action button */}
+            {/* Right side - Action button and counter */}
             <div className="flex items-center space-x-3">
+              <div className="text-white text-xs sm:text-sm">
+                <span className="font-bold">
+                  {personasRegistradas}/{maxPersonas} registradas
+                </span>
+              </div>
               {isUsuarioRegistrado ? (
                 <div className="flex items-center space-x-2 text-white">
                   <CheckCircle className="w-5 h-5 text-green-300" />
@@ -177,6 +184,13 @@ export default function TopBarOfertas() {
       {/* Animated border */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
     </div>
+
+    {/* Modal de Ventajas */}
+    <VentajasSuscripcionModal
+      isOpen={showVentajasModal}
+      onClose={() => setShowVentajasModal(false)}
+      onRegistrarse={handleRegistrarse}
+    />
 
     {/* Modal de Suscripción */}
     <SuscripcionModal
