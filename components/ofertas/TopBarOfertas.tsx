@@ -69,7 +69,7 @@ export default function TopBarOfertas() {
               
               <div className="text-white text-xs sm:text-sm">
                 <span className="hidden sm:inline">para las primeras </span>
-                <span className="font-bold">{maxPersonas} personas</span>
+                <span className="font-bold">{maxPersonas}personas</span>
               </div>
             </div>
 
